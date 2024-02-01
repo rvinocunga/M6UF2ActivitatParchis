@@ -7,76 +7,75 @@ import javax.persistence.Id;
 
 @Entity
 public class Jugador {
-	/*
-	 * IdJugador (clau primària) 
-	 * Nom (nom del jugador) 
-	 * Color (color associat al jugador) 
-	 * Victòries (nombre de partides guanyades)
-	 * 
-	 */
-	
-	@Id
-	private int IdJugador;
-	
-	private String nom;
-	
-	private String color;
-	
-	private int victories;
-	
-	//
-	// Constructors
-    //
-	
-	public Jugador(String nom, String color, int victories) {
-		this.nom = nom;
-		this.color = color;
-		this.victories = victories;
-    }
-	
-	//
-	// Getters and setters
-	//
-	
-	public int getId() {
-        return IdJugador;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int idJugador;
+    private String nom;
+    private String color;
+    private int victories;
+
+    // Constructor por defecto necesario para JPA
+    public Jugador() {
     }
 
-	//setter necessary?
-    public void setId(int id) {
-        this.IdJugador = id;
+    // Constructor con argumentos
+    public Jugador(String nom, String color, int victories) {
+        this.nom = nom;
+        this.color = color;
+        this.victories = victories;
     }
-    
+
+    // Getters y Setters
+
+    public int getId() {
+        return idJugador;
+    }
+
+    // Este setter podría no ser necesario si no necesitas cambiar el ID después de la creación del objeto
+    /*
+    public void setId(int id) {
+        this.idJugador = id;
+    }
+    */
+
     public String getNom() {
-    	return nom;
+        return nom;
     }
 
     public void setNom(String nom) {
-    	this.nom = nom;
-    }
-    
-    public String getColor() {
-    	return color;
+        this.nom = nom;
     }
 
-    public void setColor(String color) {
-    	this.color = color;
+    public String getColor() {
+        return color;
     }
-    
+    //no cambiará de color
+    /*
+    public void setColor(String color) {
+        this.color = color;
+    }
+    */
+
     public int getVictories() {
         return victories;
     }
 
-    //setter necessary?
+    // Este setter podría no ser necesario si no necesitas cambiar las victorias después de la creación del objeto
+    /*
     public void setVictories(int victories) {
         this.victories = victories;
     }
+    */
 
-    //
-    //toString
-    //
+    // Método toString
+    @Override
     public String toString() {
-    	return " - Jugador "+ nom + ": amb ID " + IdJugador + ", color: " + color + ", victories: " + victories + ". ";
+        return "Jugador{" +
+                "id=" + idJugador +
+                ", nom='" + nom + '\'' +
+                ", color='" + color + '\'' +
+                ", victories=" + victories +
+                '}';
     }
-    
 }
