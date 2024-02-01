@@ -26,9 +26,10 @@ public class Fitxa {
     public Fitxa() {
     }
     
-    public Fitxa(int posicio, boolean activa, int idJugador) {
+    public Fitxa(int posicio, boolean activa, Jugador jugador) {
     	this.posicio = posicio;
     	this.activa = activa;
+    	this.jugador = jugador;
     }
 
     // Getters y Setters
