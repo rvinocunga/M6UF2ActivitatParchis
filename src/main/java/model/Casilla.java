@@ -13,11 +13,24 @@ public class Casilla {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idCasilla;
 
+    //tipo de casilla (inicio, normal, segura, etc...)
     private String tipoCasilla;
     private int posicion;
 
     @ManyToOne
-    private Partida partida;
+    private int IdPartida;
+    
+    // Constructor por defecto necesario para JPA
+    public Casilla() {
+    }
+
+    // Constructor con argumentos
+    public Casilla(String tipoCasilla, int posicion, int IdPartida) {
+    	this.tipoCasilla = tipoCasilla;
+    	this.posicion = posicion;
+    	this.IdPartida = IdPartida;
+    }
+    
 
     // Getters y Setters
 
@@ -45,11 +58,17 @@ public class Casilla {
         this.posicion = posicion;
     }
 
-    public Partida getPartida() {
-        return partida;
+    public int getPartida() {
+        return IdPartida;
     }
 
-    public void setPartida(Partida partida) {
-        this.partida = partida;
+    public void setPartida(int IdPartida) {
+        this.IdPartida = IdPartida;
+    }
+    
+    @Override
+    public String toString() {
+    	// TODO Auto-generated method stub
+    	return "Casilla: " + idCasilla + " tipo de casilla: "+ tipoCasilla + ", posicion: " + posicion + ", idPartida: " + IdPartida;
     }
 }

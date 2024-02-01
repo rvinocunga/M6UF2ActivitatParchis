@@ -21,6 +21,16 @@ public class Partida {
     private Jugador ganador;
 
     private boolean enCurso;
+    
+ // Constructor por defecto necesario para JPA
+    public Partida() {
+    }
+
+    // Constructor con argumentos
+    public Partida(LocalDateTime fechaIncio) {
+    	this.fechaInicio = fechaIncio;
+    	this.enCurso = true;
+    }
 
     // Getters y Setters
 
@@ -39,7 +49,7 @@ public class Partida {
     public void setFechaInicio(LocalDateTime fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
-
+     
     public LocalDateTime getFechaFin() {
         return fechaFin;
     }
