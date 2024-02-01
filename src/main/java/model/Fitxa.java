@@ -21,16 +21,6 @@ public class Fitxa {
 
     @ManyToOne
     private Partida partida;
-    
-    // Constructor por defecto necesario para JPA
-    public Fitxa() {
-    }
-    
-    public Fitxa(int posicio, boolean activa, Jugador jugador) {
-    	this.posicio = posicio;
-    	this.activa = activa;
-    	this.jugador = jugador;
-    }
 
     // Getters y Setters
 
@@ -72,11 +62,5 @@ public class Fitxa {
 
     public void setPartida(Partida partida) {
         this.partida = partida;
-    }
-    
-    @Override
-    public String toString() {
-    	// TODO Auto-generated method stub
-    	return " - Fitxa: " +idFitxa +", posición: " + posicio + ", activa: " + activa + ", del jugador: " + jugador + ", en la partida: " + partida;
     }
 }
