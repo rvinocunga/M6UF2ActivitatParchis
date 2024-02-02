@@ -1,6 +1,5 @@
 package daoimpl;
 
-
 import dao.JugadorDao;
 import model.Jugador;
 import org.hibernate.Session;
@@ -10,12 +9,14 @@ import java.util.List;
 
 public class JugadorDaoImpl implements JugadorDao {
 
-    private final SessionFactory sessionFactory;
+    private SessionFactory sessionFactory;
 
+    // Constructor: necessita una sessionFactory per crear sessions.
     public JugadorDaoImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
+    // Troba un jugador per ID. 
     @Override
     public Jugador findById(int id) {
         Session session = sessionFactory.openSession();
@@ -24,6 +25,7 @@ public class JugadorDaoImpl implements JugadorDao {
         return jugador;
     }
 
+    // Guarda un nou jugador a la base de dades. 
     @Override
     public void save(Jugador jugador) {
         Session session = sessionFactory.openSession();
@@ -33,7 +35,7 @@ public class JugadorDaoImpl implements JugadorDao {
         session.close();
     }
 
-    @Override
+    // Actualitza un jugador existent. 
     public void update(Jugador jugador) {
         Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
@@ -42,6 +44,7 @@ public class JugadorDaoImpl implements JugadorDao {
         session.close();
     }
 
+    // Esborra un jugador de la base de dades.
     @Override
     public void delete(Jugador jugador) {
         Session session = sessionFactory.openSession();
@@ -51,12 +54,13 @@ public class JugadorDaoImpl implements JugadorDao {
         session.close();
     }
 
+    // Retorna tots els jugadors. 
     @SuppressWarnings("unchecked")
     @Override
     public List<Jugador> findAll() {
         Session session = sessionFactory.openSession();
-        List<Jugador> list = session.createQuery("from Jugador").list();
+        List<Jugador> jugadores = session.createQuery("from Jugador").list();
         session.close();
-        return list;
+        return jugadores;
     }
 }
