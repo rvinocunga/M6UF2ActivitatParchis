@@ -27,7 +27,7 @@ public class Partida {
 
     private boolean enCurso;
     
-    @OneToMany(mappedBy = "partida", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    //@OneToMany(mappedBy = "partida", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Jugador> jugadors;
 
     // Constructors

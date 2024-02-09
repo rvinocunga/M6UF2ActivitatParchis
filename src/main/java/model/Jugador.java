@@ -6,8 +6,6 @@ import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Column;
-import javax.persistence.OneToMany;
-import java.util.Set;
 
 @Entity
 @Table(name = "Jugadors")
@@ -27,24 +25,18 @@ public class Jugador {
     @Column(name = "victories")
     private int victories;
 
-    @OneToMany(mappedBy = "jugador")
-    private Set<Fitxa> fitxes;
-
     // Constructors
     public Jugador() {
     }
 
     // Constructor con argumentos
 
-    public Jugador(int idJugador, String nom, String color, int victories) {
-        this.idJugador = idJugador;
+    public Jugador(String nom, String color, int victories) {
         this.nom = nom;
         this.color = color;
         this.victories = victories;
     }
     
-        
-
     // Getters i Setters
     public int getIdJugador() {
         return idJugador;
@@ -77,13 +69,4 @@ public class Jugador {
     public void setVictories(int victories) {
         this.victories = victories;
     }
-
-    public Set<Fitxa> getFitxes() {
-        return fitxes;
-    }
-
-    public void setFitxes(Set<Fitxa> fitxes) {
-        this.fitxes = fitxes;
-    }
-
 }

@@ -16,33 +16,30 @@ import model.Fitxa;
 import model.Jugador;
 import model.Partida;
 
+
 public class testMain {
 
     public static void main(String[] args) {
         try {
-            //Jugador j1 = new Jugador(1, "Roger", "vermell", 1);
-            //JugadorDao dao = new JugadorDaoImpl(PersistenciaConfig.getEntityManager());
-            
+            // Jugador
+//            Jugador j1 = new Jugador("prueba", "blau", 11);
+//            JugadorDao dao = new JugadorDaoImpl(PersistenciaConfig.getEntityManager());
+//            dao.insertar(j1);
+
             // Partida
-            Partida p1 = new Partida(LocalDateTime.now());
-            PartidaDao parDAO = new PartidaDaoImpl(PersistenciaConfig.getEntityManager());
-            
-            // Casilla
-            //Casilla c1 = new Casilla("normal", 45);
-            //CasillaDao casDAO = new CasillaDaoImpl(PersistenciaConfig.getEntityManager());
-            
-            //casDAO.insertar(c1);
+//            Partida p1 = new Partida(LocalDateTime.now());
+//            PartidaDao parDAO = new PartidaDaoImpl(PersistenciaConfig.getEntityManager());
+//            parDAO.insertar(p1);
+
+//             Casilla
+//            Casilla c1 = new Casilla("prueba", 22);
+//            CasillaDao casDAO = new CasillaDaoImpl(PersistenciaConfig.getEntityManager());
+//            casDAO.insertar(c1);
             
             // Fitxa
-            //Fitxa f1 = new Fitxa(20, true);
-            //FitxaDao fitDAO = new FitxaDaoImpl(PersistenciaConfig.getEntityManager());
-            
-            //fitDAO.insertar(f1);
-            
-            parDAO.insertar(p1);
-            //dao.insertar(j1);
-            //System.out.println(dao.findById(2));
-            //dao.eliminar(j1);
+            Fitxa f1 = new Fitxa(20, true);
+            FitxaDao fitDAO = new FitxaDaoImpl(PersistenciaConfig.getEntityManager());
+            fitDAO.insertar(f1);
         } catch (Exception ex) {
             Logger.getLogger(testMain.class.getName()).log(Level.SEVERE, null, ex);
         }

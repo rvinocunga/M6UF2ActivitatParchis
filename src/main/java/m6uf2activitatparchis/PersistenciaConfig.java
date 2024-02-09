@@ -17,10 +17,10 @@ public class PersistenciaConfig {
             if (em != null) {
                 return em;
             }
-            em = Persistence.createEntityManagerFactory("M6UF2ActivitatParchis_PU1").createEntityManager();
+            em = Persistence.createEntityManagerFactory("parchis_PU_1").createEntityManager();
 
         } catch (Exception ex) {
-            throw new RuntimeException("Error al crear EntityManeger " + ex.getMessage());
+            throw new RuntimeException("Error al crear EntityManager " + ex.getMessage());
         }
         return em;
     }

@@ -44,6 +44,8 @@ public class JugadorDaoImpl implements JugadorDao {
             em.getTransaction().commit();
         } catch (EntityNotFoundException ex) {
             throw new RuntimeException(ex.getMessage());
+        } finally {
+            em.close();
         }
     }
 

@@ -73,29 +73,4 @@ public class FitxaDaoImpl implements FitxaDao {
                 .getResultList();
     }
 
-    @Override
-    public List<Fitxa> findByPartida(int idPartida) {
-        Session session = sessionFactory.openSession();
-        List<Fitxa> fitxes = null;
-        try {
-            // Inicia la transacció (opcional per a operacions de lectura)
-            Transaction tx = session.beginTransaction();
-            
-            // Realitza la consulta per trobar totes les fitxes associades amb la partida específica
-            fitxes = session.createQuery("FROM Fitxa WHERE partida.idPartida = :idPartida", Fitxa.class)
-                            .setParameter("idPartida", idPartida)
-                            .getResultList();
-            
-            // Commit de la transacció (opcional per a operacions de lectura)
-            tx.commit();
-        } catch (RuntimeException e) {
-            // En cas d'error, es pot fer un rollback de la transacció (si s'ha iniciat)
-            e.printStackTrace(); // Maneja l'excepció segons les teves necessitats
-        } finally {
-            // Tanca la sessió per alliberar recursos
-            session.close();
-        }
-        return fitxes;
-    }
-
 }
