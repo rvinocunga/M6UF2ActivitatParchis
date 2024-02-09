@@ -1,44 +1,58 @@
 package model;
 
 import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.Column;
+import javax.persistence.OneToMany;
+import java.util.Set;
 
 @Entity
+@Table(name = "Jugadors")
 public class Jugador {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idJugador")
     private int idJugador;
+
+    @Column(name = "nom")
     private String nom;
+
+    @Column(name = "color")
     private String color;
+
+    @Column(name = "victories")
     private int victories;
 
-    // Constructor por defecto necesario para JPA
+    @OneToMany(mappedBy = "jugador")
+    private Set<Fitxa> fitxes;
+
+    // Constructors
     public Jugador() {
     }
 
     // Constructor con argumentos
+
     public Jugador(int idJugador, String nom, String color, int victories) {
         this.idJugador = idJugador;
         this.nom = nom;
         this.color = color;
         this.victories = victories;
     }
+    
+        
 
-    // Getters y Setters
-
-    public int getId() {
+    // Getters i Setters
+    public int getIdJugador() {
         return idJugador;
     }
 
-    // Este setter podría no ser necesario si no necesitas cambiar el ID después de la creación del objeto
-    /*
-    public void setId(int id) {
-        this.idJugador = id;
+    public void setIdJugador(int idJugador) {
+        this.idJugador = idJugador;
     }
-    */
 
     public String getNom() {
         return nom;
@@ -51,32 +65,25 @@ public class Jugador {
     public String getColor() {
         return color;
     }
-    //no cambiará de color
-    /*
+
     public void setColor(String color) {
         this.color = color;
     }
-    */
 
     public int getVictories() {
         return victories;
     }
 
-    // Este setter podría no ser necesario si no necesitas cambiar las victorias después de la creación del objeto
-    /*
     public void setVictories(int victories) {
         this.victories = victories;
     }
-    */
 
-    // Método toString
-    @Override
-    public String toString() {
-        return "Jugador{" +
-                "id=" + idJugador +
-                ", nom='" + nom + '\'' +
-                ", color='" + color + '\'' +
-                ", victories=" + victories +
-                '}';
+    public Set<Fitxa> getFitxes() {
+        return fitxes;
     }
+
+    public void setFitxes(Set<Fitxa> fitxes) {
+        this.fitxes = fitxes;
+    }
+
 }
