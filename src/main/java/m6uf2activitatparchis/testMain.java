@@ -1,20 +1,51 @@
 package m6uf2activitatparchis;
+
+import dao.CasillaDao;
+import dao.FitxaDao;
+import dao.JugadorDao;
+import dao.PartidaDao;
+import daoimpl.CasillaDaoImpl;
+import daoimpl.FitxaDaoImpl;
+import daoimpl.JugadorDaoImpl;
+import daoimpl.PartidaDaoImpl;
+import java.time.LocalDateTime;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Casilla;
 import model.Fitxa;
 import model.Jugador;
+import model.Partida;
+
 public class testMain {
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		Casilla casilla = new Casilla("normal", 13, 1);
-		System.out.println(casilla.toString());
-		
-		Jugador j1 = new Jugador("Javier", "amarillo", 2);
-		Jugador j2 = new Jugador("roger", "rojo", 0);
-		//En la clase fitxa, en vez de un INT de IdJugador recibe un OBJETO jugador
-		Fitxa f1 = new Fitxa(10, true, j2);
-		System.out.println(f1.toString());
-		
-	}
+    public static void main(String[] args) {
+        try {
+            //Jugador j1 = new Jugador(1, "Roger", "vermell", 1);
+            //JugadorDao dao = new JugadorDaoImpl(PersistenciaConfig.getEntityManager());
+            
+            // Partida
+            Partida p1 = new Partida(LocalDateTime.now());
+            PartidaDao parDAO = new PartidaDaoImpl(PersistenciaConfig.getEntityManager());
+            
+            // Casilla
+            //Casilla c1 = new Casilla("normal", 45);
+            //CasillaDao casDAO = new CasillaDaoImpl(PersistenciaConfig.getEntityManager());
+            
+            //casDAO.insertar(c1);
+            
+            // Fitxa
+            //Fitxa f1 = new Fitxa(20, true);
+            //FitxaDao fitDAO = new FitxaDaoImpl(PersistenciaConfig.getEntityManager());
+            
+            //fitDAO.insertar(f1);
+            
+            parDAO.insertar(p1);
+            //dao.insertar(j1);
+            //System.out.println(dao.findById(2));
+            //dao.eliminar(j1);
+        } catch (Exception ex) {
+            Logger.getLogger(testMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
 }

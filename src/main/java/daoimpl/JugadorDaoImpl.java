@@ -2,65 +2,65 @@ package daoimpl;
 
 import dao.JugadorDao;
 import model.Jugador;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
 
 public class JugadorDaoImpl implements JugadorDao {
 
-    private SessionFactory sessionFactory;
+    private EntityManager em;
 
-    // Constructor: necessita una sessionFactory per crear sessions.
-    public JugadorDaoImpl(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+    // Constructors
+    public JugadorDaoImpl() {
+    }
+
+    public JugadorDaoImpl(EntityManager em) {
+        this.em = em;
     }
 
     // Troba un jugador per ID. 
     @Override
     public Jugador findById(int id) {
-        Session session = sessionFactory.openSession();
-        Jugador jugador = session.get(Jugador.class, id);
-        session.close();
-        return jugador;
+        return em.find(Jugador.class, id);
     }
 
     // Guarda un nou jugador a la base de dades. 
     @Override
-    public void save(Jugador jugador) {
-        Session session = sessionFactory.openSession();
-        Transaction tx = session.beginTransaction();
-        session.save(jugador);
-        tx.commit();
-        session.close();
+    public void insertar(Jugador jugador) throws Exception {
+        try {
+            em.getTransaction().begin();
+            em.persist(jugador);
+            em.getTransaction().commit();
+        } catch (EntityNotFoundException ex) {
+            throw new RuntimeException(ex.getMessage());
+        }
     }
 
-    // Actualitza un jugador existent. 
-    public void update(Jugador jugador) {
-        Session session = sessionFactory.openSession();
-        Transaction tx = session.beginTransaction();
-        session.update(jugador);
-        tx.commit();
-        session.close();
-    }
-
-    // Esborra un jugador de la base de dades.
     @Override
-    public void delete(Jugador jugador) {
-        Session session = sessionFactory.openSession();
-        Transaction tx = session.beginTransaction();
-        session.delete(jugador);
-        tx.commit();
-        session.close();
+    public void actualizar(Jugador jugador) throws Exception {
+        try {
+            em.getTransaction().begin();
+            em.merge(jugador);
+            em.getTransaction().commit();
+        } catch (EntityNotFoundException ex) {
+            throw new RuntimeException(ex.getMessage());
+        }
     }
 
-    // Retorna tots els jugadors. 
-    @SuppressWarnings("unchecked")
     @Override
-    public List<Jugador> findAll() {
-        Session session = sessionFactory.openSession();
-        List<Jugador> jugadores = session.createQuery("from Jugador").list();
-        session.close();
-        return jugadores;
+    public void eliminar(Jugador jugador) throws Exception {
+        try {
+            em.getTransaction().begin();
+            em.remove(em.contains(jugador) ? jugador : em.merge(jugador));
+            em.getTransaction().commit();
+        } catch (EntityNotFoundException ex) {
+            throw new RuntimeException(ex.getMessage());
+        }
     }
+
+    @Override
+    public List<Jugador> listar() throws Exception {
+        return em.createQuery("SELECT j FROM Jugador j", Jugador.class).getResultList();
+    }
+
 }

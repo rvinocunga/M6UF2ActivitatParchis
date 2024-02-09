@@ -22,8 +22,16 @@ public class Fitxa {
     @ManyToOne
     private Partida partida;
 
-    // Getters y Setters
+    // Constructores
+    public Fitxa() {
+    }
 
+    public Fitxa(int posicio, boolean activa) {
+        this.posicio = posicio;
+        this.activa = activa;
+    }
+
+    // Getters y Setters
     public int getIdFitxa() {
         return idFitxa;
     }
@@ -63,4 +71,11 @@ public class Fitxa {
     public void setPartida(Partida partida) {
         this.partida = partida;
     }
+
+    // toString
+    @Override
+    public String toString() {
+        return "Fitxa{" + "idFitxa=" + idFitxa + ", posicio=" + posicio + ", activa=" + activa + ", jugador=" + jugador + ", partida=" + partida + '}';
+    }
+
 }

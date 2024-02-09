@@ -2,76 +2,78 @@ package daoimpl;
 
 import dao.CasillaDao;
 import model.Casilla;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import java.util.List;
+import javax.persistence.EntityNotFoundException;
 
 public class CasillaDaoImpl implements CasillaDao {
 
-    private SessionFactory sessionFactory;
+    private EntityManager em;
 
-    // Constructor que requereix una sessionFactory per a crear i gestionar sessions de Hibernate.
-    public CasillaDaoImpl(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+    // Constructors
+    public CasillaDaoImpl() {
     }
 
-    // Troba una casilla per l'ID proporcionat.
+    public CasillaDaoImpl(EntityManager em) {
+        this.em = em;
+    }
+
+    // Encuentra una casilla por el ID proporcionado.
     @Override
     public Casilla findById(int id) {
-        Session session = sessionFactory.openSession();
-        Casilla casilla = session.get(Casilla.class, id);
-        session.close();  
-        return casilla;
+        return em.find(Casilla.class, id);
     }
 
-    // Guarda una casilla nova a la base de dades. 
-    public void save(Casilla casilla) {
-        Session session = sessionFactory.openSession();
-        Transaction tx = session.beginTransaction();  // Inicia una transacci√≥.
-        session.save(casilla);  // Guarda l'objecte casilla.
-        tx.commit();  
-        session.close(); 
-    }
-
-    // Actualitza una casilla existent, com ara canviar el seu tipus o associaci√≥ amb una partida.
+    // Guarda una nueva casilla en la base de datos.
     @Override
-    public void update(Casilla casilla) {
-        Session session = sessionFactory.openSession();
-        Transaction tx = session.beginTransaction();
-        session.update(casilla);
-        tx.commit();
-        session.close();
+    public void insertar(Casilla casilla) throws Exception {
+        try {
+            em.getTransaction().begin();
+            em.persist(casilla);
+            em.getTransaction().commit();
+        } catch (EntityNotFoundException ex) {
+            throw new RuntimeException(ex.getMessage());
+        }
     }
 
-    // Esborra una casilla de la base de dades.
-    public void delete(Casilla casilla) {
-        Session session = sessionFactory.openSession();
-        Transaction tx = session.beginTransaction();
-        session.delete(casilla);
-        tx.commit();
-        session.close();
+    // Actualiza una casilla existente, como cambiar su tipo o asociaciÛn con una partida.
+    @Override
+    public void actualizar(Casilla casilla) {
+        try {
+            em.getTransaction().begin();
+            em.merge(casilla);
+            em.getTransaction().commit();
+        } catch (EntityNotFoundException ex) {
+            throw new RuntimeException(ex.getMessage());
+        }
     }
 
-    // Retorna totes les caselles.
+    // Elimina una casilla de la base de datos.
+    @Override
+    public void eliminar(Casilla casilla) {
+        try {
+            em.getTransaction().begin();
+            em.remove(em.contains(casilla) ? casilla : em.merge(casilla));
+            em.getTransaction().commit();
+        } catch (EntityNotFoundException ex) {
+            throw new RuntimeException(ex.getMessage());
+        }
+    }
+
+    // Retorna todas las casillas.
     @SuppressWarnings("unchecked")
     @Override
-    public List<Casilla> findAll() {
-        Session session = sessionFactory.openSession();
-        List<Casilla> casillas = session.createQuery("from Casilla").list();
-        session.close();
-        return casillas;
+    public List<Casilla> listar() {
+        return em.createQuery("from Casilla").getResultList();
     }
 
-    // Retorna les caselles associades a una partida espec√≠fica.
+    // Retorna las casillas asociadas a una partida especÌfica.
     @SuppressWarnings("unchecked")
     @Override
-    public List<Casilla> findByPartida(int idPartida) {
-        Session session = sessionFactory.openSession();
-        List<Casilla> casillas = session.createQuery("from Casilla where partida.idPartida = :idPartida")
-                                        .setParameter("idPartida", idPartida)
-                                        .list();
-        session.close();
-        return casillas;
+    public List<Casilla> listarPorPartida(int idPartida) {
+        return em.createQuery("select c from Casilla c where c.partida.idPartida = :idPartida")
+                .setParameter("idPartida", idPartida)
+                .getResultList();
     }
 }

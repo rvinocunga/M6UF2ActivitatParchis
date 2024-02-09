@@ -2,74 +2,67 @@ package daoimpl;
 
 import dao.PartidaDao;
 import model.Partida;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+import javax.persistence.EntityManager;
 import java.util.List;
+import javax.persistence.EntityNotFoundException;
 
 public class PartidaDaoImpl implements PartidaDao {
 
-    private SessionFactory sessionFactory;
+    private EntityManager em;
 
-    // Constructor: Assigna la sessionFactory per a operacions de base de dades.
-    public PartidaDaoImpl(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+    // Constructors
+    public PartidaDaoImpl() {
     }
 
-    // Troba una partida per ID. 
+    public PartidaDaoImpl(EntityManager em) {
+        this.em = em;
+    }
+
+    @Override
     public Partida findById(int id) {
-        Session session = sessionFactory.openSession();
-        Partida partida = session.get(Partida.class, id);
-        session.close();
-        return partida;
+        return em.find(Partida.class, id);
     }
 
-    // Guarda una nova partida. 
     @Override
-    public void save(Partida partida) {
-        Session session = sessionFactory.openSession();
-        Transaction tx = session.beginTransaction();
-        session.save(partida);
-        tx.commit();
-        session.close();
+    public void insertar(Partida partida) throws Exception {
+        try {
+            em.getTransaction().begin();
+            em.persist(partida);
+            em.getTransaction().commit();
+        } catch (EntityNotFoundException ex) {
+            throw new RuntimeException(ex.getMessage());
+        }
     }
 
-    // Actualitza l'estat d'una partida existent.
-    public void update(Partida partida) {
-        Session session = sessionFactory.openSession();
-        Transaction tx = session.beginTransaction();
-        session.update(partida);
-        tx.commit();
-        session.close();
-    }
-
-    // Esborra una partida. 
     @Override
-    public void delete(Partida partida) {
-        Session session = sessionFactory.openSession();
-        Transaction tx = session.beginTransaction();
-        session.delete(partida);
-        tx.commit();
-        session.close();
+    public void actualizar(Partida partida) throws Exception {
+        try {
+            em.getTransaction().begin();
+            em.merge(partida);
+            em.getTransaction().commit();
+        } catch (EntityNotFoundException ex) {
+            throw new RuntimeException(ex.getMessage());
+        }
     }
 
-    // Retorna totes les partides. 
-    @SuppressWarnings("unchecked")
     @Override
-    public List<Partida> findAll() {
-        Session session = sessionFactory.openSession();
-        List<Partida> partidas = session.createQuery("from Partida").list();
-        session.close();
-        return partidas;
+    public void eliminar(Partida partida) throws Exception {
+        try {
+            em.getTransaction().begin();
+            em.remove(em.contains(partida) ? partida : em.merge(partida));
+            em.getTransaction().commit();
+        } catch (EntityNotFoundException ex) {
+            throw new RuntimeException(ex.getMessage());
+        }
     }
 
-    // Retorna les partides que estan en curs. 
-    @SuppressWarnings("unchecked")
     @Override
-    public List<Partida> findEnCurso() {
-        Session session = sessionFactory.openSession();
-        List<Partida> partidas = session.createQuery("from Partida where enCurso = true").list();
-        session.close();
-        return partidas;
+    public List<Partida> listarTodas() {
+        return em.createQuery("SELECT p FROM Partida p", Partida.class).getResultList();
+    }
+
+    @Override
+    public List<Partida> listarEnCurso() {
+        return em.createQuery("SELECT p FROM Partida p WHERE p.estado = 'EN_CURSO'", Partida.class).getResultList();
     }
 }

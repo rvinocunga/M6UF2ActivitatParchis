@@ -20,7 +20,8 @@ public class Jugador {
     }
 
     // Constructor con argumentos
-    public Jugador(String nom, String color, int victories) {
+    public Jugador(int idJugador, String nom, String color, int victories) {
+        this.idJugador = idJugador;
         this.nom = nom;
         this.color = color;
         this.victories = victories;

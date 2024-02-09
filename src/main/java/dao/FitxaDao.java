@@ -4,10 +4,10 @@ import model.Fitxa;
 import java.util.List;
 
 public interface FitxaDao {
-    Fitxa findById(int id);
-    void save(Fitxa fitxa);
-    void update(Fitxa fitxa);
-    void delete(Fitxa fitxa);
-    List<Fitxa> findAll();
-    List<Fitxa> findByJugadorAndPartida(int idJugador, int idPartida);
+    Fitxa findById(int id) throws Exception;
+    void insertar(Fitxa fitxa) throws Exception;
+    void actualizar(Fitxa fitxa) throws Exception;
+    void eliminar(Fitxa fitxa) throws Exception;
+    List<Fitxa> listar() throws Exception;
+    List<Fitxa> listarFichaJugadorEnPartida(int idJugador, int idPartida) throws Exception;
 }

@@ -19,6 +19,16 @@ public class Casilla {
     @ManyToOne
     private Partida partida;
 
+    // Constructors
+    
+    public Casilla() {
+    }
+
+    public Casilla(String tipoCasilla, int posicion) {
+        this.tipoCasilla = tipoCasilla;
+        this.posicion = posicion;
+    }
+    
     // Getters y Setters
 
     public int getIdCasilla() {
@@ -52,4 +62,12 @@ public class Casilla {
     public void setPartida(Partida partida) {
         this.partida = partida;
     }
+    
+    // toString
+
+    @Override
+    public String toString() {
+        return "Casilla{" + "idCasilla=" + idCasilla + ", tipoCasilla=" + tipoCasilla + ", posicion=" + posicion + ", partida=" + partida + '}';
+    }
+    
 }

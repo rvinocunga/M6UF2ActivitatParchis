@@ -22,6 +22,16 @@ public class Partida {
 
     private boolean enCurso;
 
+    // Constructors
+
+    public Partida() {
+    }
+
+    public Partida(LocalDateTime fechaInicio) {
+        this.fechaInicio = fechaInicio;
+        this.enCurso = true;
+    }    
+    
     // Getters y Setters
 
     public int getIdPartida() {
@@ -64,4 +74,12 @@ public class Partida {
     public void setEnCurso(boolean enCurso) {
         this.enCurso = enCurso;
     }
+    
+    // toString
+
+    @Override
+    public String toString() {
+        return "Partida{" + "idPartida=" + idPartida + ", fechaInicio=" + fechaInicio + ", fechaFin=" + fechaFin + ", ganador=" + ganador + ", enCurso=" + enCurso + '}';
+    }
+    
 }
