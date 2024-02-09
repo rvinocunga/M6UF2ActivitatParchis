@@ -10,4 +10,5 @@ public interface FitxaDao {
     void delete(Fitxa fitxa);
     List<Fitxa> findAll();
     List<Fitxa> findByJugadorAndPartida(int idJugador, int idPartida);
+	List<Fitxa> findByPartida(int idPartida);
 }
