@@ -16,33 +16,20 @@ import model.Fitxa;
 import model.Jugador;
 import model.Partida;
 
-
 public class testMain {
 
-    public static void main(String[] args) {
-        try {
-            // Jugador
-//            Jugador j1 = new Jugador("prueba", "blau", 11);
-//            JugadorDao dao = new JugadorDaoImpl(PersistenciaConfig.getEntityManager());
-//            dao.insertar(j1);
-
-            // Partida
-//            Partida p1 = new Partida(LocalDateTime.now());
-//            PartidaDao parDAO = new PartidaDaoImpl(PersistenciaConfig.getEntityManager());
-//            parDAO.insertar(p1);
-
-//             Casilla
-//            Casilla c1 = new Casilla("prueba", 22);
-//            CasillaDao casDAO = new CasillaDaoImpl(PersistenciaConfig.getEntityManager());
-//            casDAO.insertar(c1);
-            
-            // Fitxa
-            Fitxa f1 = new Fitxa(20, true);
-            FitxaDao fitDAO = new FitxaDaoImpl(PersistenciaConfig.getEntityManager());
-            fitDAO.insertar(f1);
-        } catch (Exception ex) {
-            Logger.getLogger(testMain.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public static void main(String[] args) throws Exception{
+        Partida partida = new Partida(LocalDateTime.now());
+        PartidaDao DAOPartida = new PartidaDaoImpl(PersistenciaConfig.getEntityManager());
+        DAOPartida.insertar(partida);
+        
+        Jugador j1;
+        JugadorDao DAOJugador = new JugadorDaoImpl(PersistenciaConfig.getEntityManager());
+        j1 = DAOJugador.findById(1);
+        
+        Fitxa f1 = new Fitxa(0, true, j1, partida);
+        FitxaDao DAOFitxa = new FitxaDaoImpl(PersistenciaConfig.getEntityManager());
+        DAOFitxa.insertar(f1);
     }
 
 }

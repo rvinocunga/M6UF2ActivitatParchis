@@ -11,6 +11,7 @@ import javax.persistence.OneToMany;
 
 import java.time.LocalDateTime;
 import java.util.Set;
+import javax.persistence.JoinColumn;
 
 @Entity
 public class Partida {
@@ -23,26 +24,25 @@ public class Partida {
     private LocalDateTime fechaFin;
 
     @ManyToOne
+    @JoinColumn(name = "GANADOR_IDJUGADOR") // Opcional, pot ser nullable si la partida està en curs
     private Jugador ganador;
 
     private boolean enCurso;
-    
+
     //@OneToMany(mappedBy = "partida", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Jugador> jugadors;
 
     // Constructors
-
     public Partida() {
     }
 
     public Partida(LocalDateTime fechaInicio) {
         this.fechaInicio = fechaInicio;
         this.enCurso = true;
-    }    
-    
-    // Getters y Setters
-    
+        this.ganador = null;
+    }
 
+    // Getters y Setters
     public Set<Jugador> getJugadors() {
         return this.jugadors;
     }
@@ -59,11 +59,10 @@ public class Partida {
         return fechaInicio;
     }
 
-    
     public void setFechaInicio(LocalDateTime fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
-    
+
     public LocalDateTime getFechaFin() {
         return fechaFin;
     }
@@ -87,14 +86,12 @@ public class Partida {
     public void setEnCurso(boolean enCurso) {
         this.enCurso = enCurso;
     }
-    
-    // toString
 
+    // toString
     @Override
     public String toString() {
         return "Partida{" + "idPartida=" + idPartida + ", fechaInicio=" + fechaInicio + ", fechaFin=" + fechaFin + ", ganador=" + ganador + ", enCurso=" + enCurso + '}';
     }
-   
 
     public void setJugadors(Set<Jugador> jugadors) {
         this.jugadors = jugadors;

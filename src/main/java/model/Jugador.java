@@ -1,11 +1,13 @@
 package model;
 
+import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Column;
+import javax.persistence.OneToMany;
 
 @Entity
 @Table(name = "Jugadors")
@@ -24,6 +26,9 @@ public class Jugador {
 
     @Column(name = "victories")
     private int victories;
+    
+    @OneToMany(mappedBy = "jugador")
+    private Set<Fitxa> fitxes;
 
     // Constructors
     public Jugador() {
@@ -44,6 +49,13 @@ public class Jugador {
 
     public void setIdJugador(int idJugador) {
         this.idJugador = idJugador;
+    }
+     public Set<Fitxa> getFitxes() {
+        return fitxes;
+    }
+
+    public void setFitxes(Set<Fitxa> fitxes) {
+        this.fitxes = fitxes;
     }
 
     public String getNom() {

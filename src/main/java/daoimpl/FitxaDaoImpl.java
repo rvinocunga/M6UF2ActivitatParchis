@@ -73,4 +73,12 @@ public class FitxaDaoImpl implements FitxaDao {
                 .getResultList();
     }
 
+    @Override
+    public List<Fitxa> listarPorPosicionYPartida(int posicio, int idPartida) throws Exception {
+        return em.createQuery("SELECT f FROM Fitxa f WHERE f.posicio = :posicio AND f.partida.idPartida = :idPartida", Fitxa.class)
+                .setParameter("posicio", posicio)
+                .setParameter("idPartida", idPartida)
+                .getResultList();
+    }
+
 }

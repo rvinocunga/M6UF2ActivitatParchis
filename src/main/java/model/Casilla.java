@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -17,6 +18,7 @@ public class Casilla {
     private int posicion;
 
     @ManyToOne
+    @JoinColumn(name = "idPartida", nullable = false) // Defineix la clau forana per Partida
     private Partida partida;
 
     // Constructors

@@ -10,4 +10,5 @@ public interface FitxaDao {
     void eliminar(Fitxa fitxa) throws Exception;
     List<Fitxa> listar() throws Exception;
     List<Fitxa> listarFichaJugadorEnPartida(int idJugador, int idPartida) throws Exception;
+    List<Fitxa> listarPorPosicionYPartida(int posicio, int idPartida) throws Exception; // Nou metode afegit
 }

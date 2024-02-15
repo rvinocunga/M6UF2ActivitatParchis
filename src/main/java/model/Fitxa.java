@@ -1,13 +1,16 @@
 package model;
 
+import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
-public class Fitxa {
+public class Fitxa implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,19 +19,23 @@ public class Fitxa {
     private int posicio;
     private boolean activa;
 
-    @ManyToOne
+    @ManyToOne()
+    @JoinColumn(name = "IDJUGADOR", nullable = false) // Define la clave foránea a Jugador
     private Jugador jugador;
 
-    @ManyToOne
+    @ManyToOne()
+    @JoinColumn(name = "IDPARTIDA", nullable = false) // Define la clave foránea a Partida
     private Partida partida;
 
     // Constructores
     public Fitxa() {
     }
 
-    public Fitxa(int posicio, boolean activa) {
+    public Fitxa(int posicio, boolean activa, Jugador jugador, Partida partida) {
         this.posicio = posicio;
         this.activa = activa;
+        this.jugador = jugador;
+        this.partida = partida;
     }
 
     // Getters y Setters

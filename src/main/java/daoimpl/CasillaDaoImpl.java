@@ -3,7 +3,6 @@ package daoimpl;
 import dao.CasillaDao;
 import model.Casilla;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import java.util.List;
 import javax.persistence.EntityNotFoundException;
 
@@ -37,7 +36,7 @@ public class CasillaDaoImpl implements CasillaDao {
         }
     }
 
-    // Actualiza una casilla existente, como cambiar su tipo o asociación con una partida.
+    // Actualiza una casilla existente, como cambiar su tipo o asociaciï¿½n con una partida.
     @Override
     public void actualizar(Casilla casilla) {
         try {
@@ -68,7 +67,7 @@ public class CasillaDaoImpl implements CasillaDao {
         return em.createQuery("from Casilla").getResultList();
     }
 
-    // Retorna las casillas asociadas a una partida específica.
+    // Retorna las casillas asociadas a una partida especï¿½fica.
     @SuppressWarnings("unchecked")
     @Override
     public List<Casilla> listarPorPartida(int idPartida) {
