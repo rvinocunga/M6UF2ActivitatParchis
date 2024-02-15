@@ -1,14 +1,17 @@
 package model;
 
+import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
-public class Casilla {
+@Table(name = "Casilla")
+public class Casilla implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,17 +21,20 @@ public class Casilla {
     private int posicion;
 
     @ManyToOne
-    @JoinColumn(name = "idPartida", nullable = false) // Defineix la clau forana per Partida
+    @JoinColumn(name = "IDCASILLA", nullable = false) // Defineix la clau forana per Partida
     private Partida partida;
+    
+    private int idPartida;
 
     // Constructors
     
     public Casilla() {
     }
 
-    public Casilla(String tipoCasilla, int posicion) {
+    public Casilla(String tipoCasilla, int posicion, Partida partida) {
         this.tipoCasilla = tipoCasilla;
         this.posicion = posicion;
+        this.partida = partida;
     }
     
     // Getters y Setters

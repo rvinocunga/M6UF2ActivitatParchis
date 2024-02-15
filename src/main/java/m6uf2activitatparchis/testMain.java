@@ -18,11 +18,17 @@ import model.Partida;
 
 public class testMain {
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
         Partida partida = new Partida(LocalDateTime.now());
         PartidaDao DAOPartida = new PartidaDaoImpl(PersistenciaConfig.getEntityManager());
         DAOPartida.insertar(partida);
         
+        Casilla casilla = new Casilla("Normal", 0);
+        CasillaDao DAOCasilla = new CasillaDaoImpl(PersistenciaConfig.getEntityManager());
+        DAOCasilla.insertar(casilla);
+        
+        
+        /*
         Jugador j1;
         JugadorDao DAOJugador = new JugadorDaoImpl(PersistenciaConfig.getEntityManager());
         j1 = DAOJugador.findById(1);
@@ -30,6 +36,7 @@ public class testMain {
         Fitxa f1 = new Fitxa(0, true, j1, partida);
         FitxaDao DAOFitxa = new FitxaDaoImpl(PersistenciaConfig.getEntityManager());
         DAOFitxa.insertar(f1);
+         */
     }
 
 }
