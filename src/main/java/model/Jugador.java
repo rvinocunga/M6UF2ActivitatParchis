@@ -36,10 +36,9 @@ public class Jugador {
 
     // Constructor con argumentos
 
-    public Jugador(String nom, String color, int victories) {
+    public Jugador(String nom, String color) {
         this.nom = nom;
         this.color = color;
-        this.victories = victories;
     }
     
     // Getters i Setters

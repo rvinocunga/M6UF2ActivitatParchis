@@ -2,7 +2,6 @@ package daoimpl;
 
 import dao.FitxaDao;
 import model.Fitxa;
-import org.hibernate.Session;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
@@ -33,7 +32,7 @@ public class FitxaDaoImpl implements FitxaDao {
             em.persist(fitxa);
             em.getTransaction().commit();
         } catch (EntityNotFoundException ex) {
-            throw new RuntimeException(ex.getMessage());
+            throw new RuntimeException("Error al insertar FITXA: " + ex.getMessage());
         }
     }
 
